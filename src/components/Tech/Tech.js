@@ -1,27 +1,27 @@
 import React from "react";
-import { GET_CLOTHES } from "../../graphql/GetClothes";
 import ProductCard from "../ProductCard/ProductCard";
+import { GET_TECH } from "../../graphql/GetTech";
 
-class Clothes extends React.Component {
+class Tech extends React.Component {
   constructor() {
     super();
     this.state = {
-      clothes: [],
+      tech: [],
     };
   }
 
   componentDidMount() {
-    GET_CLOTHES.then((data) =>
-      this.setState({ clothes: data.data.categories[0].products })
+    GET_TECH.then((data) =>
+      this.setState({ tech: data.data.categories[1].products })
     );
   }
 
   render() {
     return (
       <section>
-        <h1 className="category-title">Clothes</h1>
+        <h1 className="category-title">Tech</h1>
         <div className="product-card-container">
-          {this.state.clothes.map((item) => (
+          {this.state.tech.map((item) => (
             <ProductCard
               key={item.id}
               img={item.gallery[0]}
@@ -35,4 +35,4 @@ class Clothes extends React.Component {
   }
 }
 
-export default Clothes;
+export default Tech;

@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import "./Category.css";
 import { GET_CATEGORY } from "../../graphql/GetCategory";
 
@@ -7,6 +8,7 @@ class Category extends React.Component {
     super();
     this.state = {
       categories: [{ name: "all" }],
+      active: false,
     };
   }
 
@@ -20,14 +22,29 @@ class Category extends React.Component {
     );
   }
 
+  // navLinkClick = () => {
+  //   this.setState((prev) => {
+  //     return {
+  //       active: !prev.active,
+  //     };
+  //   });
+  // };
+
   render() {
     return (
       <ul className="nav-list">
         {this.state.categories.map((item) => {
           return (
-            <li key={item.name} className="nav-list-item">
-              <a href={item.name}>{item.name}</a>
-            </li>
+            <NavLink
+              // onClick={this.navLinkClick}
+              to={item.name}
+              key={item.name}
+              className={
+                this.state.active ? "nav-list-item__clicked" : "nav-list-item"
+              }
+            >
+              {item.name}
+            </NavLink>
           );
         })}
       </ul>
