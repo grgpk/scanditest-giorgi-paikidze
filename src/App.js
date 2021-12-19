@@ -1,13 +1,18 @@
 import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
 import Header from "./components/Header/Header";
-import './App.css';
+import Clothes from "./components/Clothes/Clothes";
 
 class App extends React.Component {
   render() {
     return (
-      <div>
+      <BrowserRouter>
         <Header />
-      </div>
+        <Routes>
+          {/* <Route path="/" element={<Clothes />} /> */}
+        </Routes>
+      </BrowserRouter>
     );
   }
 }
