@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { ApolloProvider } from "@apollo/client";
 import App from "./App";
-import { client } from "./graphql/GetCategory";
+import { client } from "./graphql/QueryCategories";
 
 ReactDOM.render(
   <React.StrictMode>

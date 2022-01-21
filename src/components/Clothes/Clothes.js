@@ -1,5 +1,6 @@
 import React from "react";
-import { GET_CLOTHES } from "../../graphql/GetClothes";
+import { client } from "../../graphql/QueryCategories";
+import { queryCategory } from "../../graphql/QueryCategory";
 import ProductCard from "../ProductCard/ProductCard";
 
 class Clothes extends React.Component {
@@ -11,9 +12,12 @@ class Clothes extends React.Component {
   }
 
   componentDidMount() {
-    GET_CLOTHES.then((data) =>
-      this.setState({ clothes: data.data.categories[0].products })
-    );
+    client
+      .query({ query: queryCategory, variables: { category: "clothes" } })
+      .then((data) => {
+        this.setState({ clothes: data.data.category.products });
+      })
+      .catch((err) => console.log(err));
   }
 
   render() {
@@ -21,14 +25,20 @@ class Clothes extends React.Component {
       <section>
         <h1 className="category-title">Clothes</h1>
         <div className="product-card-container">
-          {this.state.clothes.map((item) => (
-            <ProductCard
-              key={item.id}
-              img={item.gallery[0]}
-              name={item.name}
-              price={"$50.00"}
-            />
-          ))}
+          {this.state.clothes.map((item) => {
+            const currency = item.prices.filter(
+              (el) => el.currency === this.props.currency.selectedCurrency
+            );
+            return (
+              <ProductCard
+                key={item.id}
+                id={item.id}
+                img={item.gallery[0]}
+                name={item.name}
+                price={`${this.props.currency.selectedCurrencySymbol} ${currency[0].amount}`}
+              />
+            );
+          })}
         </div>
       </section>
     );

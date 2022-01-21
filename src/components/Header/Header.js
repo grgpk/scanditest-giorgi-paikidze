@@ -3,17 +3,67 @@ import logo from "./header-logo.png";
 import emptyCart from "./EmptyCart.png";
 import vector from "./Vector.png";
 import Navigation from "../Navigation/Navigation";
-import './Header.css';
+import CurrencyList from "../CurrencyList/CurrencyList";
+import OutsideClickHandler from "react-outside-click-handler";
+import "./Header.css";
 
 class Header extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      currencyListActive: false,
+      currency: {
+        USD: "$",
+        GBP: "£",
+        JPY: "¥",
+        AUD: "$",
+        RUB: "₽",
+      },
+    };
+  }
+
+  listCurrencies = () => {
+    this.setState((prev) => ({ currencyListActive: !prev.currencyListActive }));
+  };
+
   render() {
     return (
       <header className="header">
         <Navigation />
         <img src={logo} alt="header-logo" className="header-logo" />
         <div className="actions">
-          <span className="currency">$</span>
-          <img src={vector} alt="vector" />
+          <span className="currency">
+            {this.props.selectedCurrency.selectedCurrencySymbol}
+          </span>
+          <OutsideClickHandler
+            onOutsideClick={() => {
+              this.setState(() => ({
+                currencyListActive: false,
+              }));
+            }}
+          >
+            <div className="currency-list-container">
+              <button onClick={this.listCurrencies} className="currency-btn">
+                <img
+                  src={vector}
+                  alt="vector"
+                  className={
+                    this.state.currencyListActive
+                      ? "currency-listing-active"
+                      : "currency-listing"
+                  }
+                />
+              </button>
+
+              {this.state.currencyListActive && (
+                <CurrencyList
+                  isActive={this.state.currencyListActive}
+                  currencySymbol={this.state.currency}
+                  selectCurrency={this.props.selectCurrency}
+                />
+              )}
+            </div>
+          </OutsideClickHandler>
           <img src={emptyCart} alt="cart" className="actions-cart" />
         </div>
       </header>

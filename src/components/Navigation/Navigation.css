@@ -20,30 +20,11 @@
   position: relative;
 }
 
-.nav-list-item__clicked {
+.active {
+  padding-bottom: 1.5em;
   text-decoration: none;
   text-transform: uppercase;
   color: #5ece7b;
   position: relative;
-}
-
-.nav-list-item:hover {
-  color: #5ece7b;
-}
-
-.nav-list-item::after {
-  content: "";
-  display: block;
-  height: 2px;
-  background-color: #5ece7b;
-  position: absolute;
-  right: 0;
-  left: 0;
-  bottom: -1.5rem;
-  transform: scale(0, 1);
-  transition: transform ease-in-out 250ms;
-}
-
-.nav-list-item:hover::after {
-  transform: scale(1, 1);
+  border-bottom: 2px solid #5ece7b;
 }

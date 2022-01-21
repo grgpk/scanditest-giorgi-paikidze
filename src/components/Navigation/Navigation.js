@@ -1,12 +1,42 @@
 import React from "react";
 import "./Navigation.css";
-import Category from "../Category/Category";
+import { NavLink } from "react-router-dom";
+import { client, queryCategories } from "../../graphql/QueryCategories";
 
 class Navigation extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      categories: [{ name: "all" }],
+    };
+  }
+
+  componentDidMount() {
+    client.query({ query: queryCategories }).then((data) =>
+      this.setState((prevState) => {
+        return {
+          categories: [...prevState.categories, ...data.data.categories],
+        };
+      })
+    );
+  }
   render() {
     return (
       <nav className="nav">
-        <Category />
+        <ul className="nav-list">
+          {this.state.categories.map((item) => {
+            return (
+              <NavLink
+                to={item.name}
+                key={item.name}
+                className="nav-list-item"
+                activeclassname="active"
+              >
+                {item.name}
+              </NavLink>
+            );
+          })}
+        </ul>
       </nav>
     );
   }

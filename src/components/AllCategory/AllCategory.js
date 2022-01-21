@@ -1,5 +1,6 @@
 import React from "react";
-import { GET_ALL_PRODUCTS } from "../../graphql/GetProduct";
+import { client } from "../../graphql/QueryCategories";
+import { queryAllProducts } from "../../graphql/QueryAllProducts";
 import ProductCard from "../ProductCard/ProductCard";
 import "./AllCategory.css";
 
@@ -12,24 +13,34 @@ class AllCategory extends React.Component {
   }
 
   componentDidMount() {
-    GET_ALL_PRODUCTS.then((data) =>
-      this.setState({ allProducts: data.data.category.products })
-    );
+    client
+      .query({
+        query: queryAllProducts,
+      })
+      .then((data) =>
+        this.setState({ allProducts: data.data.category.products })
+      );
   }
 
   render() {
     return (
-      <section >
+      <section>
         <h1 className="category-title">All Products</h1>
         <div className="product-card-container">
-          {this.state.allProducts.map((item) => (
-            <ProductCard
-              key={item.id}
-              img={item.gallery[0]}
-              name={item.name}
-              price={"$50.00"}
-            />
-          ))}
+          {this.state.allProducts.map((item) => {
+            const currency = item.prices.filter(
+              (el) => el.currency === this.props.currency.selectedCurrency
+            );
+            return (
+              <ProductCard
+                key={item.id}
+                id={item.id}
+                img={item.gallery[0]}
+                name={item.name}
+                price={`${this.props.currency.selectedCurrencySymbol} ${currency[0].amount}`}
+              />
+            );
+          })}
         </div>
       </section>
     );

@@ -5,12 +5,10 @@ export const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-export const GET_CATEGORY = client.query({
-  query: gql`
-    query {
-      categories {
-        name
-      }
+export const queryCategories = gql`
+  query {
+    categories {
+      name
     }
-  `,
-});
+  }
+`;

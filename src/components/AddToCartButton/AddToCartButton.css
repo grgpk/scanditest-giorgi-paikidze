@@ -1,0 +1,23 @@
+.add-to-cart-btn {
+  height: 52px;
+  width: 52px;
+  border-radius: 50%;
+  position: absolute;
+  right: 10%;
+  bottom: 10%;
+  background-color: #5ece7b;
+  background-image: url("./EmptyCart.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  transition: transform 0.3s ease-out;
+}
+
+.add-to-cart-btn:hover,
+.add-to-cart-btn:active {
+  transform: scale(1.2);
+}
+
+.add-to-cart-btn:active {
+  transform: translateY(1.5px);
+}

@@ -27,3 +27,22 @@
 .currency {
   padding: 0 10px;
 }
+
+.currency-list-container {
+  position: relative;
+}
+
+.currency-btn {
+  background-color: white;
+  border: 0;
+  cursor: pointer;
+}
+
+.currency-listing-active {
+  transform: rotate(180deg);
+}
+
+.currency-listing {
+  width: 8px;
+  height: 5px;
+}

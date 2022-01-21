@@ -26,5 +26,9 @@
   margin: 0;
   font-size: 1.1rem;
   line-height: 160%;
-  color: #1D1F22;
+  color: #1d1f22;
+}
+
+.product-link {
+  text-decoration: none;
 }
