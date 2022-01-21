@@ -7,7 +7,7 @@ export default class ProductCard extends React.Component {
   render() {
     const { img, price, name, id } = this.props;
     return (
-      <Link to={`/product/${id}`} className="product-link">
+      <Link to={`/product/id=${id}`} className="product-link">
         <div className="product-card">
           <img src={img} alt={name} />
           <AddToCartButton />

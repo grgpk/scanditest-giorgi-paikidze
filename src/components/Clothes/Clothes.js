@@ -16,8 +16,7 @@ class Clothes extends React.Component {
       .query({ query: queryCategory, variables: { category: "clothes" } })
       .then((data) => {
         this.setState({ clothes: data.data.category.products });
-      })
-      .catch((err) => console.log(err));
+      });
   }
 
   render() {

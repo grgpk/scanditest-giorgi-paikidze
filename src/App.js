@@ -55,7 +55,7 @@ class App extends React.Component {
           />
           <Route
             path="product/:id"
-            render={({ match }) => <PDP id={match.params.id} />}
+            element={<PDP currency={this.state.currency} />}
           />
         </Routes>
       </BrowserRouter>
