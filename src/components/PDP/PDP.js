@@ -33,10 +33,11 @@ export class PDP extends React.Component {
   }
 
   render() {
-    const { gallery, name, description, id, brand } = this.state.product;
+    const { gallery, name, description, id, brand, prices } =
+      this.state.product;
     const currency = this.state.currency;
     const img = gallery ? gallery[0] : null;
-    let price;
+    let priceAmount;
     return (
       <div className="pdp-container">
         <div className="pdp-image">
@@ -53,12 +54,12 @@ export class PDP extends React.Component {
             {currency[0]
               ? currency.map((el, idx) => {
                   if (el.currency === this.props.currency.selectedCurrency) {
-                    price = el.amount;
+                    priceAmount = el.amount;
                     return (
                       <div
                         className="price"
                         key={idx}
-                      >{`${this.props.currency.selectedCurrencySymbol} ${price}`}</div>
+                      >{`${this.props.currency.selectedCurrencySymbol} ${priceAmount}`}</div>
                     );
                   }
                   return undefined;
@@ -68,7 +69,7 @@ export class PDP extends React.Component {
           <button
             className="pdp-info-btn"
             onClick={() => {
-              this.props.addToCart({ img, name, id, price, brand });
+              this.props.addToCart({ img, name, id, prices, brand });
             }}
           >
             Add to cart
