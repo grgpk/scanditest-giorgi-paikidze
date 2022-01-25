@@ -5,6 +5,7 @@ export const queryCategory = gql`
     category(input: { title: $category }) {
       name
       products {
+        brand
         name
         gallery
         id

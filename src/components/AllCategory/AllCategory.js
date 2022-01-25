@@ -25,7 +25,7 @@ class AllCategory extends React.Component {
   render() {
     return (
       <section>
-        <h1 className="category-title">All Products</h1>
+        <h1 className="category-title">All</h1>
         <div className="product-card-container">
           {this.state.allProducts.map((item) => {
             const currency = item.prices.filter(
@@ -33,9 +33,11 @@ class AllCategory extends React.Component {
             );
             return (
               <ProductCard
+                addToCart={this.props.addToCart}
                 key={item.id}
                 id={item.id}
                 img={item.gallery[0]}
+                brand={item.brand}
                 name={item.name}
                 price={`${this.props.currency.selectedCurrencySymbol} ${currency[0].amount}`}
               />

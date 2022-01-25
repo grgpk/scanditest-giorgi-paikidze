@@ -64,6 +64,7 @@ class Header extends React.Component {
               )}
             </div>
           </OutsideClickHandler>
+          {this.props.itemsQuantity ? <div className="cart-items-quantity">{this.props.itemsQuantity}</div> : <></>}
           <img src={emptyCart} alt="cart" className="actions-cart" />
         </div>
       </header>

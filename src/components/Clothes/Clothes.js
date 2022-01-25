@@ -30,9 +30,11 @@ class Clothes extends React.Component {
             );
             return (
               <ProductCard
+                addToCart={this.props.addToCart}
                 key={item.id}
                 id={item.id}
                 img={item.gallery[0]}
+                brand={item.brand}
                 name={item.name}
                 price={`${this.props.currency.selectedCurrencySymbol} ${currency[0].amount}`}
               />
