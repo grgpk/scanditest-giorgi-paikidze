@@ -120,6 +120,9 @@ class App extends React.Component {
           selectedCurrency={this.state.currency}
           selectCurrency={this.selectCurrency}
           itemsQuantity={this.state.itemsQuantity}
+          cart={this.state.cart}
+          addToCart={this.addToCart}
+          removeFromCart={this.removeFromCart}
         />
         <Routes>
           <Route

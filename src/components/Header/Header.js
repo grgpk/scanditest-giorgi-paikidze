@@ -4,6 +4,7 @@ import emptyCart from "./EmptyCart.png";
 import vector from "./Vector.png";
 import Navigation from "../Navigation/Navigation";
 import CurrencyList from "../CurrencyList/CurrencyList";
+import CartOverlay from "../Cart-overlay/CartOverlay";
 import OutsideClickHandler from "react-outside-click-handler";
 import "./Header.css";
 
@@ -64,8 +65,21 @@ class Header extends React.Component {
               )}
             </div>
           </OutsideClickHandler>
-          {this.props.itemsQuantity ? <div className="cart-items-quantity">{this.props.itemsQuantity}</div> : <></>}
+          {this.props.itemsQuantity ? (
+            <div className="cart-items-quantity">
+              {this.props.itemsQuantity}
+            </div>
+          ) : (
+            <></>
+          )}
           <img src={emptyCart} alt="cart" className="actions-cart" />
+          <CartOverlay
+            cart={this.props.cart}
+            currency={this.props.selectedCurrency}
+            removeFromCart={this.props.removeFromCart}
+            addToCart={this.props.addToCart}
+            itemsQuantity={this.props.itemsQuantity}
+          />
         </div>
       </header>
     );
