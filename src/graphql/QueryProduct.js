@@ -12,6 +12,16 @@ export const queryProduct = gql`
         currency
         amount
       }
+      attributes {
+        name
+        id
+        type
+        items {
+          displayValue
+          value
+          id
+        }
+      }
     }
   }
 `;

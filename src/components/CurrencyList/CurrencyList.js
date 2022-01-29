@@ -26,7 +26,7 @@ export default class CurrencyList extends React.Component {
             <div
               key={currency}
               className="currency-list-item"
-              onClick={selectCurrency()}
+              onClick={selectCurrency}
             >
               {`${currencySymbol[currency]} ${currency}`}
             </div>

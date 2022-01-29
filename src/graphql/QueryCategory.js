@@ -13,6 +13,16 @@ export const queryCategory = gql`
           amount
           currency
         }
+        attributes {
+          name
+          id
+          type
+          items {
+            displayValue
+            value
+            id
+          }
+        }
       }
     }
   }

@@ -20,11 +20,16 @@ class Header extends React.Component {
         AUD: "$",
         RUB: "₽",
       },
+      cartOverlay: false,
     };
   }
 
   listCurrencies = () => {
     this.setState((prev) => ({ currencyListActive: !prev.currencyListActive }));
+  };
+
+  openCartOverlay = () => {
+    this.setState((prevState) => ({ cartOverlay: !prevState.cartOverlay }));
   };
 
   render() {
@@ -65,22 +70,33 @@ class Header extends React.Component {
               )}
             </div>
           </OutsideClickHandler>
-          {this.props.itemsQuantity ? (
-            <div className="cart-items-quantity">
-              {this.props.itemsQuantity}
-            </div>
-          ) : (
-            <></>
-          )}
-          <img src={emptyCart} alt="cart" className="actions-cart" />
-          <CartOverlay
-            cart={this.props.cart}
-            currency={this.props.selectedCurrency}
-            removeFromCart={this.props.removeFromCart}
-            addToCart={this.props.addToCart}
-            itemsQuantity={this.props.itemsQuantity}
-          />
+          <OutsideClickHandler
+            onOutsideClick={() => {
+              this.setState(() => ({ cartOverlay: false }));
+            }}
+          >
+            <button onClick={this.openCartOverlay} className="actions-cart">
+              {this.props.itemsQuantity ? (
+                <div className="cart-items-quantity">
+                  {this.props.itemsQuantity}
+                </div>
+              ) : null}
+              <img src={emptyCart} alt="cart" />
+            </button>
+            {this.state.cartOverlay && (
+              <CartOverlay
+                cart={this.props.cart}
+                currency={this.props.selectedCurrency}
+                removeFromCart={this.props.removeFromCart}
+                addToCart={this.props.addToCart}
+                itemsQuantity={this.props.itemsQuantity}
+                openCartOverlay={this.openCartOverlay}
+                getTotalPrice={this.props.getTotalPrice}
+              />
+            )}
+          </OutsideClickHandler>
         </div>
+        {this.state.cartOverlay && <div className="cart-overlay"></div>}
       </header>
     );
   }

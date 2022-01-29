@@ -19,16 +19,15 @@ export class CartItems extends React.Component {
                 <h3 className={classes.productBrand}>{product.brand}</h3>
                 <p className={classes.productName}>{product.name}</p>
                 <p className={classes.productPrice}>
-                  {product.prices
-                    ? product.prices.map((price) => {
-                        if (price.currency === currency.selectedCurrency) {
-                          return `${currency.selectedCurrencySymbol} ${(
-                            price.amount * product.count
-                          ).toFixed(2)}`;
-                        }
-                        return null;
-                      })
-                    : null}
+                  {product.prices &&
+                    product.prices.map((price) => {
+                      if (price.currency === currency.selectedCurrency) {
+                        return `${
+                          currency.selectedCurrencySymbol
+                        } ${price.amount.toFixed(2)}`;
+                      }
+                      return null;
+                    })}
                 </p>
               </div>
               <div className={classes.cartItemModify}>

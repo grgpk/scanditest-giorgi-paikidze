@@ -6,8 +6,15 @@ import { Link } from "react-router-dom";
 
 class CartOverlay extends React.Component {
   render() {
-    const { cart, currency, addToCart, removeFromCart, itemsQuantity } =
-      this.props;
+    const {
+      cart,
+      currency,
+      addToCart,
+      removeFromCart,
+      itemsQuantity,
+      openCartOverlay,
+      getTotalPrice,
+    } = this.props;
     return (
       <div className={classes.cartOverlay}>
         <h5>
@@ -25,11 +32,13 @@ class CartOverlay extends React.Component {
         </div>
         <div className={classes.totalPrice}>
           <p>Total</p>
-          <p>$100</p>
+          <p>{getTotalPrice()}</p>
         </div>
         <div className={classes.cartOverlayBtns}>
           <Link to={"/cart"}>
-            <button className={classes.btnBag}>VIEW BAG</button>
+            <button onClick={openCartOverlay} className={classes.btnBag}>
+              VIEW BAG
+            </button>
           </Link>
           <button className={classes.btnCheckout}>CHECK OUT</button>
         </div>

@@ -13,7 +13,15 @@ export default class ProductCard extends React.Component {
             className="add-to-cart-btn"
             onClick={(e) => {
               e.preventDefault();
-              this.props.addToCart({ brand, img, prices, id, name, count: 0 });
+
+              this.props.addToCart({
+                brand,
+                img,
+                prices,
+                id,
+                name,
+                count: 0,
+              });
             }}
           ></button>
           <div className="product-card__content">

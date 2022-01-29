@@ -17,9 +17,19 @@ class App extends React.Component {
         selectedCurrency: "USD",
       },
       cart: JSON.parse(localStorage.getItem("cart")) || [],
-      itemsQuantity: JSON.parse(localStorage.getItem("itemsQuantity")) || 0,
     };
   }
+
+  getTotalPrice = () => {
+    const { currency, cart } = this.state;
+    const totalPrice = cart.reduce((a, item) => {
+      const currentPrice = item.prices.find(
+        (el) => el.currency === currency.selectedCurrency
+      );
+      return a + currentPrice.amount * item.count;
+    }, 0);
+    return `${currency.selectedCurrencySymbol} ${totalPrice.toFixed(2)}`;
+  };
 
   addToCart = (product) => {
     const item = this.state.cart.find((el) => el.id === product.id);
@@ -30,33 +40,26 @@ class App extends React.Component {
             cart: prevState.cart.map((el) =>
               el.id === product.id ? { ...el, count: el.count + 1 } : el
             ),
-            itemsQuantity: prevState.itemsQuantity + 1,
+            totalPrice: prevState.totalPrice + product.price,
           };
         },
         () => {
           localStorage.setItem("cart", JSON.stringify(this.state.cart));
-          localStorage.setItem(
-            "itemsQuantity",
-            JSON.stringify(this.state.itemsQuantity)
-          );
         }
       );
-    } else {
+    } else if (product.selectedAttributes.length > 0) {
       this.setState(
         (prevState) => {
           return {
             cart: [...prevState.cart, { ...product, count: 1 }],
-            itemsQuantity: prevState.itemsQuantity + 1,
           };
         },
         () => {
           localStorage.setItem("cart", JSON.stringify(this.state.cart));
-          localStorage.setItem(
-            "itemsQuantity",
-            JSON.stringify(this.state.itemsQuantity)
-          );
         }
       );
+    } else {
+      alert("Please. select attributes.");
     }
   };
 
@@ -66,17 +69,10 @@ class App extends React.Component {
         (prevState) => {
           return {
             cart: prevState.cart.filter((el) => el.id !== product.id),
-            itemsQuantity: prevState.itemsQuantity
-              ? prevState.itemsQuantity - 1
-              : 0,
           };
         },
         () => {
           localStorage.setItem("cart", JSON.stringify(this.state.cart));
-          localStorage.setItem(
-            "itemsQuantity",
-            JSON.stringify(this.state.itemsQuantity)
-          );
         }
       );
     } else {
@@ -86,31 +82,22 @@ class App extends React.Component {
             cart: prevState.cart.map((el) =>
               el.id === product.id ? { ...el, count: el.count - 1 } : el
             ),
-            itemsQuantity: prevState.itemsQuantity
-              ? prevState.itemsQuantity - 1
-              : 0,
           };
         },
         () => {
           localStorage.setItem("cart", JSON.stringify(this.state.cart));
-          localStorage.setItem(
-            "itemsQuantity",
-            JSON.stringify(this.state.itemsQuantity)
-          );
         }
       );
     }
   };
 
-  selectCurrency = () => {
-    return (e) => {
-      this.setState({
-        currency: {
-          selectedCurrencySymbol: e.target.innerText.split(" ")[0],
-          selectedCurrency: e.target.innerText.split(" ")[1],
-        },
-      });
-    };
+  selectCurrency = (e) => {
+    this.setState({
+      currency: {
+        selectedCurrencySymbol: e.target.innerText.split(" ")[0],
+        selectedCurrency: e.target.innerText.split(" ")[1],
+      },
+    });
   };
 
   render() {
@@ -119,10 +106,11 @@ class App extends React.Component {
         <Header
           selectedCurrency={this.state.currency}
           selectCurrency={this.selectCurrency}
-          itemsQuantity={this.state.itemsQuantity}
+          itemsQuantity={this.state.cart.length}
           cart={this.state.cart}
           addToCart={this.addToCart}
           removeFromCart={this.removeFromCart}
+          getTotalPrice={this.getTotalPrice}
         />
         <Routes>
           <Route

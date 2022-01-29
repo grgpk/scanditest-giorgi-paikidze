@@ -1,7 +1,17 @@
 .header {
   display: flex;
   justify-content: space-between;
-  padding: 1em 0;
+  padding: 0.5em 0;
+}
+
+.cart-overlay {
+  background: rgba(57, 55, 72, 0.22);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 5;
+  right: 0;
+  top: 56px;
 }
 
 .header-logo {
@@ -23,6 +33,9 @@
   width: 20px;
   height: 20px;
   margin-left: 22px;
+  border: 0;
+  background-color: white;
+  cursor: pointer;
 }
 
 .currency {
@@ -60,5 +73,6 @@
   color: white;
   display: flex;
   justify-content: center;
+  align-items: center;
   font-size: 0.8rem;
 }

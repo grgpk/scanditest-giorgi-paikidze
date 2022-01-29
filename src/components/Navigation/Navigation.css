@@ -11,6 +11,7 @@
   display: flex;
   justify-content: space-around;
   padding: 0;
+  margin-bottom: 0;
 }
 
 .nav-list-item {
@@ -21,7 +22,7 @@
 }
 
 .active {
-  padding-bottom: 1.5em;
+  padding-bottom: 0.8em;
   text-decoration: none;
   text-transform: uppercase;
   color: #5ece7b;

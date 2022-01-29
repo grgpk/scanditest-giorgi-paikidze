@@ -9,7 +9,7 @@
 }
 
 .product-card:hover .add-to-cart-btn {
-  display: block;
+  visibility: visible;
 }
 
 .product-card img {
@@ -51,7 +51,7 @@
   cursor: pointer;
   transition: transform 0.3s ease-out;
   border: 0;
-  display: none;
+  visibility: hidden;
 }
 
 .add-to-cart-btn:hover,

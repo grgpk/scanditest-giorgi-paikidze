@@ -1,5 +1,5 @@
 .cartItem {
-  width: "70vw";
+  width: 70vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
