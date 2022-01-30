@@ -16,6 +16,7 @@ export class PDP extends React.Component {
   }
 
   componentDidMount() {
+    // Split url string to get product ID and query the product of the same ID
     let url = window.location.pathname;
     let params = queryString.parse(url);
     client
@@ -33,20 +34,18 @@ export class PDP extends React.Component {
       );
   }
 
+  // Method to select attributes and push them into the array of "selectedAttributes"
   selectAttribute = (attribute) => {
-    this.setState(
-      (prevState) => {
-        const attr = prevState.selectedAttributes.find(
-          (item) => item.id === attribute.id
-        );
-        if (!attr) {
-          return {
-            selectedAttributes: [...prevState.selectedAttributes, attribute],
-          };
-        }
-      },
-      () => console.log(this.state.selectedAttributes)
-    );
+    this.setState((prevState) => {
+      const attr = prevState.selectedAttributes.find(
+        (item) => item.id === attribute.id
+      );
+      if (!attr) {
+        return {
+          selectedAttributes: [...prevState.selectedAttributes, attribute],
+        };
+      }
+    });
   };
 
   render() {
@@ -54,8 +53,9 @@ export class PDP extends React.Component {
     const { gallery, name, description, id, brand, prices, attributes } =
       this.state.product;
     const currency = this.state.currency;
+
+    // Getting image url into img variable
     const img = gallery && gallery[0];
-    let priceAmount;
 
     return (
       <div className="pdp-container">
@@ -74,16 +74,15 @@ export class PDP extends React.Component {
           )}
           <div className="pdp-price">
             <h3>PRICE:</h3>
-
+            {/* looping through array of currencies and getting selected currency and amount */}
             {currency[0] &&
               currency.map((el, idx) => {
                 if (el.currency === this.props.currency.selectedCurrency) {
-                  priceAmount = el.amount;
                   return (
                     <div
                       className="price"
                       key={idx}
-                    >{`${this.props.currency.selectedCurrencySymbol} ${priceAmount}`}</div>
+                    >{`${this.props.currency.selectedCurrencySymbol} ${el.amount}`}</div>
                   );
                 }
                 return null;
@@ -99,6 +98,7 @@ export class PDP extends React.Component {
                 prices,
                 brand,
                 selectedAttributes,
+                attributes,
               });
             }}
           >

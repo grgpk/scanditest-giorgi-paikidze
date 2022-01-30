@@ -37,6 +37,10 @@ h5 {
 
 .productInfo {
   width: 152px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
 }
 
 .cartImg {
@@ -75,21 +79,15 @@ h5 {
   transform: translateY(2px);
 }
 
-.cartItemQuantity {
+.productBrand,
+.productName,
+.productPrice {
   font-size: 1rem;
-}
-
-.productBrand {
-  font-size: 1rem;
-}
-
-.productName {
-  font-size: 1rem;
+  margin: 0;
 }
 
 .productPrice {
   font-weight: bold;
-  font-size: 1rem;
 }
 
 .cartOverlayBtns {
@@ -118,4 +116,20 @@ h5 {
   background-color: #5ece7b;
   color: white;
   border: 0;
+}
+
+.attribute {
+  min-width: 24px;
+  height: 24px;
+  border: 1px solid #1d1f22;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0.5em;
+}
+
+.attributeContainer {
+  display: flex;
+  font-weight: 700;
+  font-size: 0.7rem;
 }

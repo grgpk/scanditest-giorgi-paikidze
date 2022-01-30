@@ -12,7 +12,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      currency: {
+      currency: JSON.parse(localStorage.getItem("currency")) || {
         selectedCurrencySymbol: "$",
         selectedCurrency: "USD",
       },
@@ -20,34 +20,41 @@ class App extends React.Component {
     };
   }
 
+  // Method for getting total price, called in cart overlay
   getTotalPrice = () => {
     const { currency, cart } = this.state;
+
     const totalPrice = cart.reduce((a, item) => {
-      const currentPrice = item.prices.find(
+      // Getting price for the selected currency
+      const selectedPrice = item.prices.find(
         (el) => el.currency === currency.selectedCurrency
       );
-      return a + currentPrice.amount * item.count;
+      return a + selectedPrice.amount * item.count;
     }, 0);
     return `${currency.selectedCurrencySymbol} ${totalPrice.toFixed(2)}`;
   };
 
   addToCart = (product) => {
+    // Check if product is already in the cart and if it is, increase it's count
     const item = this.state.cart.find((el) => el.id === product.id);
     if (item) {
       this.setState(
         (prevState) => {
           return {
             cart: prevState.cart.map((el) =>
-              el.id === product.id ? { ...el, count: el.count + 1 } : el
+              el.id === product.id ? { ...product, count: el.count + 1 } : el
             ),
-            totalPrice: prevState.totalPrice + product.price,
           };
         },
         () => {
           localStorage.setItem("cart", JSON.stringify(this.state.cart));
         }
       );
-    } else if (product.selectedAttributes.length > 0) {
+    } // If product is not in the cart already, first check whether attributes is selected, then add in the cart
+    else if (
+      product.selectedAttributes.length > 0 ||
+      product.attributes.length === 0
+    ) {
       this.setState(
         (prevState) => {
           return {
@@ -58,12 +65,14 @@ class App extends React.Component {
           localStorage.setItem("cart", JSON.stringify(this.state.cart));
         }
       );
-    } else {
-      alert("Please. select attributes.");
+    } // If attributes are not selected, ask to select them
+    else {
+      alert("Please, select attributes.");
     }
   };
 
   removeFromCart = (product) => {
+    // If product count in the cart is just 1, remove it from the cart
     if (product.count === 1) {
       this.setState(
         (prevState) => {
@@ -75,7 +84,8 @@ class App extends React.Component {
           localStorage.setItem("cart", JSON.stringify(this.state.cart));
         }
       );
-    } else {
+    } // If product count is more than 1, just decrease the counter by 1
+    else {
       this.setState(
         (prevState) => {
           return {
@@ -91,13 +101,20 @@ class App extends React.Component {
     }
   };
 
+  // Method to switch currency, called in currencyList (switcher)
   selectCurrency = (e) => {
-    this.setState({
-      currency: {
-        selectedCurrencySymbol: e.target.innerText.split(" ")[0],
-        selectedCurrency: e.target.innerText.split(" ")[1],
+    this.setState(
+      {
+        currency: {
+          // get the innerText string of el and extract currency symbol and abbreviation
+          selectedCurrencySymbol: e.target.innerText.split(" ")[0],
+          selectedCurrency: e.target.innerText.split(" ")[1],
+        },
       },
-    });
+      () => {
+        localStorage.setItem("currency", JSON.stringify(this.state.currency));
+      }
+    );
   };
 
   render() {

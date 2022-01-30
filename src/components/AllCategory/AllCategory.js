@@ -12,6 +12,7 @@ class AllCategory extends React.Component {
     };
   }
 
+  // Query all products and update the state
   componentDidMount() {
     client
       .query({
@@ -28,10 +29,12 @@ class AllCategory extends React.Component {
         <h1 className="category-title">All</h1>
         <div className="product-card-container">
           {this.state.allProducts.map((item) => {
+            // getting the selected currency and corresponding amount 
             const currency = item.prices.filter(
               (el) => el.currency === this.props.currency.selectedCurrency
             );
             return (
+              // render ProductCart for each product
               <ProductCard
                 addToCart={this.props.addToCart}
                 key={item.id}
@@ -41,6 +44,7 @@ class AllCategory extends React.Component {
                 name={item.name}
                 price={`${this.props.currency.selectedCurrencySymbol} ${currency[0].amount}`}
                 prices={item.prices}
+                attributes={item.attributes}
               />
             );
           })}

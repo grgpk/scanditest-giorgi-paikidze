@@ -38,6 +38,7 @@ class Tech extends React.Component {
                 name={item.name}
                 price={`${this.props.currency.selectedCurrencySymbol} ${currency[0].amount}`}
                 prices={item.prices}
+                attributes={item.attributes}
               />
             );
           })}

@@ -9,6 +9,7 @@ export const queryCategory = gql`
         name
         gallery
         id
+        inStock
         prices {
           amount
           currency

@@ -24,6 +24,7 @@ class Navigation extends React.Component {
     return (
       <nav className="nav">
         <ul className="nav-list">
+          {/* just renders category names/links in navigation */}
           {this.state.categories.map((item) => {
             return (
               <NavLink

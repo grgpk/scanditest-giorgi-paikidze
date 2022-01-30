@@ -24,10 +24,12 @@ class Header extends React.Component {
     };
   }
 
+  // method to open and close currency switcher
   listCurrencies = () => {
     this.setState((prev) => ({ currencyListActive: !prev.currencyListActive }));
   };
 
+  // method to open and close mini cart
   openCartOverlay = () => {
     this.setState((prevState) => ({ cartOverlay: !prevState.cartOverlay }));
   };
@@ -42,6 +44,7 @@ class Header extends React.Component {
             {this.props.selectedCurrency.selectedCurrencySymbol}
           </span>
           <OutsideClickHandler
+            // close currency switcher when clicking outside of it
             onOutsideClick={() => {
               this.setState(() => ({
                 currencyListActive: false,
@@ -60,7 +63,7 @@ class Header extends React.Component {
                   }
                 />
               </button>
-
+              {/* conditionally render currency switcher on changing the state */}
               {this.state.currencyListActive && (
                 <CurrencyList
                   isActive={this.state.currencyListActive}
@@ -71,11 +74,13 @@ class Header extends React.Component {
             </div>
           </OutsideClickHandler>
           <OutsideClickHandler
+            // close mini cart when clicking outside of it
             onOutsideClick={() => {
               this.setState(() => ({ cartOverlay: false }));
             }}
           >
             <button onClick={this.openCartOverlay} className="actions-cart">
+              {/* conditionally render items quantity badge on cart icon */}
               {this.props.itemsQuantity ? (
                 <div className="cart-items-quantity">
                   {this.props.itemsQuantity}
@@ -96,6 +101,7 @@ class Header extends React.Component {
             )}
           </OutsideClickHandler>
         </div>
+        {/* add grey transparent background when mini cart is opened */}
         {this.state.cartOverlay && <div className="cart-overlay"></div>}
       </header>
     );

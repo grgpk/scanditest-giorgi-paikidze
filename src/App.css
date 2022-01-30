@@ -7,3 +7,9 @@ body {
   margin: 0;
   font-family: "Raleway", sans-serif;
 }
+
+@media (max-width: 1020px) {
+  body {
+    padding: 0 30px;
+  }
+}

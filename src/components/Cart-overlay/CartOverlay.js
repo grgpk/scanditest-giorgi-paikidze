@@ -1,5 +1,4 @@
 import React from "react";
-// import { Link } from "react-router-dom";
 import classes from "./CartOverlay.module.css";
 import { CartItems } from "../Cart-items/CartItems";
 import { Link } from "react-router-dom";
@@ -19,7 +18,10 @@ class CartOverlay extends React.Component {
       <div className={classes.cartOverlay}>
         <h5>
           My Bag,
-          <span className={classes.itemsQuantity}> {itemsQuantity} items</span>
+          <span className={classes.itemsQuantity}>
+            {" "}
+            {itemsQuantity} {itemsQuantity > 1 ? "items" : "item"}
+          </span>
         </h5>
         <div className={classes.cartItems}>
           <CartItems

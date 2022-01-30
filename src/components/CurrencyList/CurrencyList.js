@@ -28,6 +28,7 @@ export default class CurrencyList extends React.Component {
               className="currency-list-item"
               onClick={selectCurrency}
             >
+              {/* get currency abbreviation (like USD) and render its symbol and abbreviation */}
               {`${currencySymbol[currency]} ${currency}`}
             </div>
           );

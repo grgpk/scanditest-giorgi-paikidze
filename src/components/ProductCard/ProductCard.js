@@ -4,7 +4,7 @@ import "./ProductCard.css";
 
 export default class ProductCard extends React.Component {
   render() {
-    const { brand, img, price, name, id, prices } = this.props;
+    const { brand, img, price, name, id, prices, attributes } = this.props;
     return (
       <Link to={`/product/id=${id}`} className="product-link">
         <div className="product-card">
@@ -21,6 +21,8 @@ export default class ProductCard extends React.Component {
                 id,
                 name,
                 count: 0,
+                selectedAttributes: [],
+                attributes,
               });
             }}
           ></button>

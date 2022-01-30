@@ -19,6 +19,7 @@ export class CartItems extends React.Component {
                 <h3 className={classes.productBrand}>{product.brand}</h3>
                 <p className={classes.productName}>{product.name}</p>
                 <p className={classes.productPrice}>
+                  {/* get selected currency and its amount to display in the cart */}
                   {product.prices &&
                     product.prices.map((price) => {
                       if (price.currency === currency.selectedCurrency) {
@@ -29,6 +30,20 @@ export class CartItems extends React.Component {
                       return null;
                     })}
                 </p>
+                <div className={classes.attributeContainer}>
+                  {/* display selected attributes in the cart and mini cart */}
+                  {product.selectedAttributes.map((item) => {
+                    return (
+                      <div
+                        key={item.id}
+                        className={classes.attribute}
+                        style={{ background: item.value }}
+                      >
+                        {item.type !== "swatch" && item.value}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
               <div className={classes.cartItemModify}>
                 <div className={classes.cartItemBtn}>
