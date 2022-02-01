@@ -18,7 +18,7 @@ export default class CurrencyList extends React.Component {
   }
 
   render() {
-    const { currencySymbol, selectCurrency } = this.props;
+    const { currencySymbol, selectCurrency, listCurrencies } = this.props;
     return (
       <div className="currency-list">
         {this.state.currencies.map((currency) => {
@@ -26,7 +26,10 @@ export default class CurrencyList extends React.Component {
             <div
               key={currency}
               className="currency-list-item"
-              onClick={selectCurrency}
+              onClick={(e) => {
+                selectCurrency(e);
+                listCurrencies();
+              }}
             >
               {/* get currency abbreviation (like USD) and render its symbol and abbreviation */}
               {`${currencySymbol[currency]} ${currency}`}

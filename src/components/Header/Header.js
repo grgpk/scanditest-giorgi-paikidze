@@ -66,9 +66,10 @@ class Header extends React.Component {
               {/* conditionally render currency switcher on changing the state */}
               {this.state.currencyListActive && (
                 <CurrencyList
-                  isActive={this.state.currencyListActive}
+                  // isActive={this.state.currencyListActive}
                   currencySymbol={this.state.currency}
                   selectCurrency={this.props.selectCurrency}
+                  listCurrencies={this.listCurrencies}
                 />
               )}
             </div>

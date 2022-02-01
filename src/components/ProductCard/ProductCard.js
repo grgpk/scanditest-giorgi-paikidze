@@ -9,6 +9,7 @@ export default class ProductCard extends React.Component {
       <Link to={`/product/id=${id}`} className="product-link">
         <div className="product-card">
           <img src={img} alt={name} />
+
           <button
             className="add-to-cart-btn"
             onClick={(e) => {
