@@ -8,6 +8,7 @@ export const queryProduct = gql`
       id
       gallery
       description
+      inStock
       prices {
         currency
         amount

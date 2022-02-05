@@ -37,7 +37,10 @@ class App extends React.Component {
   addToCart = (product) => {
     // Check if product is already in the cart and if it is, increase it's count
     const item = this.state.cart.find((el) => el.id === product.id);
-    if (item) {
+    // If product is out of stock, don't add to cart and warn the user
+    if (!product.inStock) {
+      alert("Selected product is out of stock!");
+    } else if (item) {
       this.setState(
         (prevState) => {
           return {

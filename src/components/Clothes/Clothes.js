@@ -39,6 +39,7 @@ class Clothes extends React.Component {
                 price={`${this.props.currency.selectedCurrencySymbol} ${currency[0].amount}`}
                 prices={item.prices}
                 attributes={item.attributes}
+                inStock={item.inStock}
               />
             );
           })}

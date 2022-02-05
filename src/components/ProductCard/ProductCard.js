@@ -4,10 +4,12 @@ import "./ProductCard.css";
 
 export default class ProductCard extends React.Component {
   render() {
-    const { brand, img, price, name, id, prices, attributes } = this.props;
+    const { brand, img, price, name, id, prices, attributes, inStock } =
+      this.props;
     return (
       <Link to={`/product/id=${id}`} className="product-link">
         <div className="product-card">
+          {!inStock && <p className="out-of-stock">out of stock</p>}
           <img src={img} alt={name} />
 
           <button
@@ -24,6 +26,7 @@ export default class ProductCard extends React.Component {
                 count: 0,
                 selectedAttributes: [],
                 attributes,
+                inStock,
               });
             }}
           ></button>

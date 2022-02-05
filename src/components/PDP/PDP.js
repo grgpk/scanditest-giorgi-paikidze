@@ -50,8 +50,16 @@ export class PDP extends React.Component {
 
   render() {
     const { selectedAttributes } = this.state;
-    const { gallery, name, description, id, brand, prices, attributes } =
-      this.state.product;
+    const {
+      gallery,
+      name,
+      description,
+      id,
+      brand,
+      prices,
+      attributes,
+      inStock,
+    } = this.state.product;
     const currency = this.state.currency;
 
     // Getting image url into img variable
@@ -60,6 +68,7 @@ export class PDP extends React.Component {
     return (
       <div className="pdp-container">
         <div className="pdp-image">{<img src={img} alt={name} />}</div>
+
         <div className="pdp-info">
           <div>
             <h1 className="product-brand">{brand}</h1>
@@ -99,6 +108,7 @@ export class PDP extends React.Component {
                 brand,
                 selectedAttributes,
                 attributes,
+                inStock,
               });
             }}
           >
