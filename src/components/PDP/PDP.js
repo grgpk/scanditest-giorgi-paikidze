@@ -36,16 +36,18 @@ export class PDP extends React.Component {
 
   // Method to select attributes and push them into the array of "selectedAttributes"
   selectAttribute = (attribute) => {
-    this.setState((prevState) => {
-      const attr = prevState.selectedAttributes.find(
-        (item) => item.id === attribute.id
-      );
-      if (!attr) {
+    const attr = this.state.selectedAttributes.find(
+      (item) => item.id === attribute.id
+    );
+    if (attr) {
+      alert("Attribute is already selected.");
+    } else {
+      this.setState((prevState) => {
         return {
           selectedAttributes: [...prevState.selectedAttributes, attribute],
         };
-      }
-    });
+      });
+    }
   };
 
   render() {
@@ -67,6 +69,19 @@ export class PDP extends React.Component {
 
     return (
       <div className="pdp-container">
+        <div className="pdp-gallery">
+          {gallery &&
+            gallery.map((img, idx) => {
+              return (
+                <img
+                  src={img}
+                  alt={name}
+                  key={idx}
+                  className="pdp-gallery-img"
+                />
+              );
+            })}
+        </div>
         <div className="pdp-image">{<img src={img} alt={name} />}</div>
 
         <div className="pdp-info">
@@ -79,6 +94,7 @@ export class PDP extends React.Component {
             <Attributes
               attributes={attributes}
               selectAttribute={this.selectAttribute}
+              selectedAttributes={this.state.selectedAttributes}
             />
           )}
           <div className="pdp-price">

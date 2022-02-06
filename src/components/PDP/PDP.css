@@ -35,6 +35,20 @@
   object-fit: contain;
 }
 
+.pdp-gallery {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 500px;
+  margin-right: 10px;
+}
+
+.pdp-gallery-img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
 .product-description {
   max-width: 500px;
   display: flex;
