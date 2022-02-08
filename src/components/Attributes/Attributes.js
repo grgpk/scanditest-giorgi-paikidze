@@ -1,17 +1,11 @@
 import React from "react";
+import Attribute from "../Attribute/Attribute";
 import "./Attributes.css";
 
 export class Attributes extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      isSelected: false,
-    };
-  }
-
   render() {
     // getting props from PDP
-    const { attributes, selectAttribute } = this.props;
+    const { attributes, selectAttribute, removeAttribute } = this.props;
     return (
       <div>
         {/* loop through attributes array to render them */}
@@ -25,22 +19,14 @@ export class Attributes extends React.Component {
                   // loop through each attribute items
                   attr.items.map((item) => {
                     return (
-                      <button
-                        onClick={() => {
-                          selectAttribute({ ...item, type });
-                          this.setState({ isSelected: true });
-                        }}
-                        className="attribute-btn"
+                      <Attribute
+                        selectAttribute={selectAttribute}
+                        item={item}
+                        type={type}
                         key={item.id}
-                        // swatch types should display its value as color
-                        style={{
-                          backgroundColor: !this.state.isSelected
-                            ? item.value
-                            : "#8B9395",
-                        }}
-                      >
-                        {type !== "swatch" && item.value}
-                      </button>
+                        product={this.props.product}
+                        removeAttribute={removeAttribute}
+                      />
                     );
                   })}
               </div>

@@ -40,7 +40,10 @@ class App extends React.Component {
     // If product is out of stock, don't add to cart and warn the user
     if (!product.inStock) {
       alert("Selected product is out of stock!");
-    } else if (item) {
+    } else if (
+      (item && product.selectedAttributes.length > 0) ||
+      product.attributes.length === 0
+    ) {
       this.setState(
         (prevState) => {
           return {

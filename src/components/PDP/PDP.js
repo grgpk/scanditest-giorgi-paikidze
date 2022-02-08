@@ -8,22 +8,25 @@ import "./PDP.css";
 export class PDP extends React.Component {
   constructor() {
     super();
+    this.url = window.location.pathname;
+    this.id = queryString.parse(this.url)["/product/id"];
+    this.product = JSON.parse(localStorage.getItem("cart")).find(
+      (el) => el.id === this.id
+    );
     this.state = {
       product: {},
       currency: [],
-      selectedAttributes: [],
+      selectedAttributes: this.product ? this.product.selectedAttributes : [],
     };
   }
 
   componentDidMount() {
     // Split url string to get product ID and query the product of the same ID
-    let url = window.location.pathname;
-    let params = queryString.parse(url);
     client
       .query({
         query: queryProduct,
         variables: {
-          id: params["/product/id"],
+          id: this.id,
         },
       })
       .then((data) =>
@@ -39,15 +42,23 @@ export class PDP extends React.Component {
     const attr = this.state.selectedAttributes.find(
       (item) => item.id === attribute.id
     );
-    if (attr) {
-      alert("Attribute is already selected.");
-    } else {
+    if (!attr) {
       this.setState((prevState) => {
         return {
           selectedAttributes: [...prevState.selectedAttributes, attribute],
         };
       });
     }
+  };
+
+  removeAttribute = (attribute) => {
+    this.setState((prevState) => {
+      return {
+        selectedAttributes: prevState.selectedAttributes.filter(
+          (el) => el.id !== attribute.id
+        ),
+      };
+    });
   };
 
   render() {
@@ -94,7 +105,9 @@ export class PDP extends React.Component {
             <Attributes
               attributes={attributes}
               selectAttribute={this.selectAttribute}
+              removeAttribute={this.removeAttribute}
               selectedAttributes={this.state.selectedAttributes}
+              product={this.product}
             />
           )}
           <div className="pdp-price">

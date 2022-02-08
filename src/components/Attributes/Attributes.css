@@ -4,18 +4,6 @@
   text-align: left;
 }
 
-.attribute-btn {
-  width: 63px;
-  height: 45px;
-  border: 1px solid #a6a6a6;
-  background-color: white;
-  margin-right: 0.8em;
-  font-family: Source Sans Pro;
-  font-weight: 700;
-  margin-top: 0.5em;
-  cursor: pointer;
-}
-
 .attribute-item {
   display: flex;
 }
