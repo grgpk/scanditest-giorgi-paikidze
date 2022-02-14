@@ -42,7 +42,7 @@ class App extends React.Component {
       alert("Selected product is out of stock!");
     } else if (
       (item && product.selectedAttributes.length > 0) ||
-      product.attributes.length === 0
+      (item && product.attributes.length === 0)
     ) {
       this.setState(
         (prevState) => {
@@ -172,7 +172,11 @@ class App extends React.Component {
           <Route
             path="product/:id"
             element={
-              <PDP currency={this.state.currency} addToCart={this.addToCart} />
+              <PDP
+                currency={this.state.currency}
+                addToCart={this.addToCart}
+                cart={this.state.cart}
+              />
             }
           />
           <Route

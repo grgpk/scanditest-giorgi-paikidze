@@ -6,13 +6,16 @@ import queryString from "query-string";
 import "./PDP.css";
 
 export class PDP extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.url = window.location.pathname;
     this.id = queryString.parse(this.url)["/product/id"];
-    this.product = JSON.parse(localStorage.getItem("cart")).find(
-      (el) => el.id === this.id
-    );
+    this.product =
+      this.props.cart.length > 0
+        ? JSON.parse(localStorage.getItem("cart")).find(
+            (el) => el.id === this.id
+          )
+        : null;
     this.state = {
       product: {},
       currency: [],
